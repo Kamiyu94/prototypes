@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>職務人才畫像雷達圖｜用人主管需求設定</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --navy:#142356; --navy2:#21478C; --gold:#FFBF00;
+    --tint:#eef0f7; --ink:#1f2430; --muted:#67708a; --line:#dde1ec;
+    --ok:#1f7a4d; --warn:#b8860b; --danger:#c0392b; --bg:#f4f5f9;
+    --green:#1f9d55; --yellow:#e0a800; --orange:#e8710a; --red:#c0392b;
+  }
+  *{box-sizing:border-box;}
+  html{zoom:1.15;}
+  body{margin:0;font-family:"PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;
+       color:var(--ink);background:var(--bg);font-size:17px;line-height:1.7;}
+
+  .topbar{background:var(--navy);color:#fff;border-bottom:4px solid var(--gold);position:sticky;top:0;z-index:50;}
+  .topbar .inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:12px 24px;flex-wrap:wrap;}
+  .brand{font-weight:900;font-size:19px;letter-spacing:.02em;}
+  .brand .dot{color:var(--gold);}
+  .brand small{display:block;font-weight:600;font-size:11px;color:#b9c2e0;letter-spacing:.05em;}
+  .topbar .acts{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:24px 24px 90px;}
+  h1{font-size:28px;font-weight:900;color:var(--navy);margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:15px;margin:0 0 18px;}
+  h3{font-size:17px;font-weight:800;color:var(--navy2);margin:0 0 12px;padding-bottom:6px;border-bottom:2px solid var(--tint);
+     display:flex;align-items:center;gap:8px;}
+  .bignum{font-size:26px;font-weight:900;color:var(--tint);margin-right:2px;-webkit-text-stroke:1px #cdd3e6;}
+
+  .layout{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:start;}
+  @media(max-width:960px){.layout{grid-template-columns:1fr;}}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 20px;
+        box-shadow:0 2px 16px rgba(20,35,86,.05);}
+  .right-col{position:sticky;top:78px;}
+
+  label.f{display:block;font-weight:800;color:var(--navy);margin:14px 0 6px;font-size:15px;}
+  label.f:first-child{margin-top:0;}
+  .req{color:var(--danger);}
+  input.t,select.t,textarea.t{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1.5px solid var(--line);
+       border-radius:10px;background:#fff;color:var(--ink);}
+  textarea.t{min-height:56px;resize:vertical;}
+  select.t{cursor:pointer;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.grid2{grid-template-columns:1fr;}}
+
+  .pill{display:inline-block;background:var(--navy);color:#fff;font-weight:800;font-size:12px;padding:3px 12px;border-radius:999px;}
+  .pill.gold{background:var(--gold);color:var(--navy);}
+
+  .btn{font:inherit;font-weight:800;font-size:15px;border:0;border-radius:10px;cursor:pointer;
+       padding:10px 20px;background:var(--navy);color:#fff;transition:.15s;}
+  .btn:hover{background:#1c3170;}
+  .btn.gold{background:var(--gold);color:var(--navy);}
+  .btn.ghost{background:#fff;color:var(--navy);border:2px solid var(--navy);}
+  .btn.sm{padding:7px 14px;font-size:13px;border-radius:8px;}
+
+  /* 構面列 */
+  .axis{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;background:#fbfbfe;}
+  .axis .top{display:flex;align-items:center;gap:8px;}
+  .axis .name{flex:1;font:inherit;font-size:15px;font-weight:800;color:var(--navy);padding:7px 10px;
+              border:1.5px solid var(--line);border-radius:8px;background:#fff;}
+  .axis .del{background:#fff;border:1.5px solid var(--line);color:var(--muted);border-radius:8px;
+             width:32px;height:32px;font-size:16px;cursor:pointer;flex:0 0 auto;}
+  .axis .del:hover{border-color:var(--danger);color:var(--danger);}
+  .axis .row2{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:9px;}
+  .lbl{font-size:12px;font-weight:800;color:var(--muted);margin-right:2px;}
+
+  .score{display:flex;gap:5px;}
+  .score .s{width:34px;height:34px;border:2px solid var(--line);border-radius:8px;background:#fff;
+            font-weight:900;font-size:15px;cursor:pointer;color:var(--navy);user-select:none;
+            display:flex;align-items:center;justify-content:center;transition:.1s;}
+  .score .s:hover{border-color:var(--navy2);}
+  .score .s.sel{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+  .cond{display:flex;gap:6px;}
+  .cond .c{padding:6px 12px;border:2px solid var(--line);border-radius:999px;font-weight:800;font-size:12px;
+           cursor:pointer;background:#fff;user-select:none;color:var(--muted);transition:.1s;}
+  .cond .c[data-v="must"].sel{border-color:var(--red);background:var(--red);color:#fff;}
+  .cond .c[data-v="should"].sel{border-color:var(--yellow);background:var(--yellow);color:var(--navy);}
+  .cond .c[data-v="nice"].sel{border-color:var(--green);background:var(--green);color:#fff;}
+
+  .axis .desc{width:100%;margin-top:9px;font:inherit;font-size:13.5px;padding:8px 10px;border:1.5px solid var(--line);
+              border-radius:8px;background:#fff;color:var(--ink);resize:vertical;min-height:38px;}
+
+  .hint{background:var(--tint);border-left:4px solid var(--navy2);border-radius:8px;padding:10px 14px;font-size:13px;color:#3a4670;margin:12px 0;}
+  .hint b{color:var(--navy);}
+  .scalekey{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:#3a4670;}
+  .scalekey span b{color:var(--navy);}
+
+  /* 圖例 */
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;font-weight:700;color:var(--ink);margin:10px 0 0;}
+  .legend .k{display:flex;align-items:center;gap:6px;}
+  .dot{width:12px;height:12px;border-radius:50%;display:inline-block;}
+
+  /* 自動提醒 */
+  .alerts .a{display:flex;gap:9px;align-items:flex-start;border-radius:10px;padding:11px 14px;margin:9px 0;font-size:14px;border:1.5px solid;}
+  .alerts .a .ico{font-weight:900;flex:0 0 auto;}
+  .a.warn{background:#fffdf2;border-color:#ecd98a;color:#6b5510;}
+  .a.warn .ico{color:var(--warn);}
+  .a.info{background:#f2f7ff;border-color:#c4d6f2;color:#2a3d63;}
+  .a.info .ico{color:var(--navy2);}
+  .a.ok{background:#f2fbf5;border-color:#b7e0c6;color:var(--ok);}
+  .a.ok .ico{color:var(--ok);}
+
+  .metaline{font-size:13px;color:var(--muted);margin-top:4px;}
+  #chartTitle{font-size:16px;font-weight:900;color:var(--navy);text-align:center;margin:2px 0 2px;}
+  #chartMeta{font-size:12.5px;color:var(--muted);text-align:center;margin:0 0 6px;}
+
+  @media print{
+    .topbar .acts,.no-print{display:none!important;}
+    html{zoom:1;} body{background:#fff;}
+    .layout{grid-template-columns:1fr 1fr;}
+    .card{box-shadow:none;break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner">
+  <div class="brand">STARCO<span class="dot">.</span> 人才畫像<small>用人主管需求設定 · 職務雷達圖</small></div>
+  <div class="acts">
+    <button class="btn gold sm" onclick="exportPNG()">⬇ 匯出 PNG</button>
+    <button class="btn ghost sm" onclick="window.print()">🖨 列印 / PDF</button>
+  </div>
+</div></div>
+
+<div class="wrap">
+  <h1>職務人才畫像雷達圖</h1>
+  <p class="sub">招募前先由用人主管定義「這個角色理想上該具備哪些能力構面、各要到什麼程度」，產出一張需求端的雷達圖，讓職缺規格對齊、面試有據可循。</p>
+
+  <div class="layout">
+    <!-- 左：輸入 -->
+    <div>
+      <div class="card">
+        <h3><span class="bignum">1</span> 職缺基本資料</h3>
+        <label class="f">職缺名稱 <span class="req">*</span></label>
+        <input class="t" id="jobName" placeholder="例：專案經理 PM、雲端工程師、資深業務" oninput="refresh()">
+        <div class="grid2">
+          <div>
+            <label class="f">職務類型（決定預設構面）<span class="req">*</span></label>
+            <select class="t" id="jobType" onchange="loadTemplate()">
+              <option value="">— 請選擇 —</option>
+              <option value="pm">PM／專案類</option>
+              <option value="eng">工程／技術類</option>
+              <option value="sales">業務類</option>
+              <option value="hr">HR 人資類</option>
+              <option value="mgr">管理職</option>
+              <option value="custom">自訂（空白開始）</option>
+            </select>
+          </div>
+          <div>
+            <label class="f">職級 <span class="req">*</span></label>
+            <select class="t" id="level" onchange="refresh()">
+              <option value="">— 請選擇 —</option>
+              <option value="junior">Junior（初階）</option>
+              <option value="mid">Mid（中階）</option>
+              <option value="senior">Senior（資深）</option>
+              <option value="lead">Lead／Manager</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid2">
+          <div>
+            <label class="f">招募原因</label>
+            <select class="t" id="reason">
+              <option value="">— 請選擇 —</option>
+              <option>新增職缺</option><option>補缺</option>
+              <option>專案需求</option><option>組織調整</option>
+            </select>
+          </div>
+          <div>
+            <label class="f">薪資區間</label>
+            <input class="t" id="salary" placeholder="例：45K–60K / 月" oninput="refresh()">
+          </div>
+        </div>
+        <label class="f">核心工作任務（3–5 項，一行一項）</label>
+        <textarea class="t" id="tasks" placeholder="例：&#10;控管專案時程與交付品質&#10;將模糊需求拆成可執行規格&#10;協調工程與業務達成共識"></textarea>
+      </div>
+
+      <div class="card">
+        <h3><span class="bignum">2</span> 能力構面與期待程度</h3>
+        <div class="hint">
+          <b>分數 1–5 的意義（填分請對照）：</b>
+          <div class="scalekey" style="margin-top:6px">
+            <span><b>1</b> 不要求／可培養</span>
+            <span><b>2</b> 具備基本概念</span>
+            <span><b>3</b> 指導下穩定執行</span>
+            <span><b>4</b> 獨立完成、處理常見問題</span>
+            <span><b>5</b> 能主導規劃、優化流程或指導他人</span>
+          </div>
+        </div>
+        <div id="axes"></div>
+        <button class="btn ghost sm" onclick="addAxis('',0,'should','')">＋ 新增構面</button>
+        <div class="hint" style="margin-top:14px">
+          <b>條件類型</b>：<b style="color:var(--red)">Must</b> 必要（沒有不建議錄取）·
+          <b style="color:var(--yellow)">Should</b> 重要（影響適配、可培養）·
+          <b style="color:var(--green)">Nice</b> 加分（有很好、非門檻）。別把每一項都設成 Must。
+        </div>
+      </div>
+    </div>
+
+    <!-- 右：輸出 -->
+    <div class="right-col">
+      <div class="card">
+        <h3><span class="bignum">3</span> 需求端雷達圖</h3>
+        <div id="chartTitle">尚未命名職缺</div>
+        <div id="chartMeta"></div>
+        <canvas id="radar" height="300"></canvas>
+        <div class="legend">
+          <span class="k"><i class="dot" style="background:var(--red)"></i>Must 必要</span>
+          <span class="k"><i class="dot" style="background:var(--yellow)"></i>Should 重要</span>
+          <span class="k"><i class="dot" style="background:var(--green)"></i>Nice 加分</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3><span class="bignum">4</span> 合理性自動提醒</h3>
+        <div class="metaline" style="margin-bottom:8px">系統只做形式檢查、不判斷人選；提醒是給主管與 HR 對齊職缺用。</div>
+        <div class="alerts" id="alerts"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---- 五類構面母版（取自 HR 規劃：招募人才期待構面表）---- */
+const TEMPLATES = {
+  pm:[
+    ['技術理解力','能理解產品、系統、技術限制，並與技術團隊有效溝通'],
+    ['專案控管力','能管理時程、任務、風險、資源與交付品質'],
+    ['需求釐清力','能將模糊需求轉化為可執行任務與規格'],
+    ['跨部門協作力','能整合不同部門意見並推動共識'],
+    ['商業敏感度','能理解客戶、營收、產品定位與市場價值'],
+    ['文件與流程能力','能建立紀錄、規格、會議結論與追蹤機制'],
+    ['問題解決力','能提出替代方案、判斷優先順序並降低風險'],
+    ['推進力','能主動追蹤進度、提醒風險並推動決策'],
+  ],
+  eng:[
+    ['技術深度','專業技術掌握度與實作能力'],
+    ['系統理解力','對架構、流程、模組關聯的理解能力'],
+    ['問題排查力','能分析錯誤、定位問題並提出修正方案'],
+    ['程式品質／維運意識','重視可讀性、穩定性、擴充性與維護成本'],
+    ['文件與交接能力','能留下技術文件、部署紀錄與問題處理紀錄'],
+    ['團隊協作力','能與 PM、設計、QA、其他工程師合作'],
+    ['學習能力','能快速吸收新技術並應用到工作'],
+    ['資安與風險意識','能理解權限、資料保護與系統安全要求'],
+  ],
+  sales:[
+    ['客戶開發能力','能開發新客戶、建立商機來源'],
+    ['需求洞察力','能理解客戶痛點與採購動機'],
+    ['提案能力','能將產品服務轉化為客戶可理解的價值'],
+    ['談判能力','能處理價格、條件、異議與成交推進'],
+    ['關係經營力','能維持長期客戶關係與信任'],
+    ['目標導向','能承擔業績目標並自我管理節奏'],
+    ['跨部門協作','能與技術、PM、客服、財務協作'],
+    ['市場敏感度','能掌握競品、市場趨勢與客戶變化'],
+  ],
+  hr:[
+    ['招募能力','能掌握職缺需求、履歷篩選、面試安排與錄用推進'],
+    ['勞法與制度理解','能理解基本勞動法令、內規與制度邏輯'],
+    ['員工關係處理','能處理溝通、申訴、離職、衝突與風險議題'],
+    ['文件制度能力','能撰寫公告、辦法、SOP、表單與紀錄'],
+    ['跨部門溝通力','能與主管、員工、總部、外部顧問協作'],
+    ['數據與追蹤能力','能整理人事資料、進度追蹤與管理報表'],
+    ['保密與風險意識','能處理敏感資訊並維持專業邊界'],
+    ['主動性與服務意識','能提前發現問題並提出管理建議'],
+  ],
+  mgr:[
+    ['策略理解力','能理解公司目標並轉化為部門行動'],
+    ['團隊管理力','能分工、授權、追蹤、培育與處理績效問題'],
+    ['決策能力','能在資訊不完整時做出合理判斷'],
+    ['跨部門整合力','能協調資源、處理衝突並推動共識'],
+    ['目標管理能力','能設定 KPI、追蹤成果與修正策略'],
+    ['風險控管力','能辨識營運、人員、專案或法遵風險'],
+    ['溝通影響力','能向上管理、向下溝通、橫向協作'],
+    ['組織成熟度','能建立制度、流程與團隊運作節奏'],
+  ],
+};
+const LEVEL_BAND = { junior:[2,3], mid:[3,4], senior:[4,5], lead:[4,5] };
+const LEVEL_LABEL = { junior:'Junior', mid:'Mid', senior:'Senior', lead:'Lead／Manager' };
+const CONDCOLOR = { must:'#c0392b', should:'#e0a800', nice:'#1f9d55' };
+
+let axesData = []; // {name, score, cond, desc}
+
+function loadTemplate(){
+  const t = document.getElementById('jobType').value;
+  if(t==='custom'){ axesData = [{name:'',score:0,cond:'should',desc:''}]; }
+  else if(TEMPLATES[t]){ axesData = TEMPLATES[t].map(([n,d])=>({name:n,score:3,cond:'should',desc:d})); }
+  else { axesData = []; }
+  renderAxes(); refresh();
+}
+function addAxis(name,score,cond,desc){
+  axesData.push({name:name||'',score:score||0,cond:cond||'should',desc:desc||''});
+  renderAxes(); refresh();
+}
+function renderAxes(){
+  const box = document.getElementById('axes'); box.innerHTML='';
+  axesData.forEach((a,i)=>{
+    const el = document.createElement('div'); el.className='axis';
+    el.innerHTML = `
+      <div class="top">
+        <input class="name" value="${escapeAttr(a.name)}" placeholder="構面名稱" oninput="setAxis(${i},'name',this.value)">
+        <button class="del" title="刪除" onclick="delAxis(${i})">✕</button>
+      </div>
+      <div class="row2">
+        <div style="display:flex;align-items:center"><span class="lbl">期待</span>
+          <div class="score">${[1,2,3,4,5].map(n=>`<div class="s ${a.score==n?'sel':''}" onclick="setAxis(${i},'score',${n})">${n}</div>`).join('')}</div>
+        </div>
+        <div style="display:flex;align-items:center"><span class="lbl">類型</span>
+          <div class="cond">
+            <div class="c ${a.cond==='must'?'sel':''}" data-v="must" onclick="setAxis(${i},'cond','must')">Must</div>
+            <div class="c ${a.cond==='should'?'sel':''}" data-v="should" onclick="setAxis(${i},'cond','should')">Should</div>
+            <div class="c ${a.cond==='nice'?'sel':''}" data-v="nice" onclick="setAxis(${i},'cond','nice')">Nice</div>
+          </div>
+        </div>
+      </div>
+      <textarea class="desc" placeholder="評分說明：主管期待的具體行為（例：能獨立拆解模糊需求成規格）" oninput="setAxis(${i},'desc',this.value)">${escapeHtml(a.desc)}</textarea>`;
+    box.appendChild(el);
+  });
+}
+function setAxis(i,k,v){ axesData[i][k]=v; if(k==='score'||k==='cond') renderAxes(); refresh(); }
+function delAxis(i){ axesData.splice(i,1); renderAxes(); refresh(); }
+function escapeHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function escapeAttr(s){return escapeHtml(s).replace(/"/g,'&quot;');}
+
+/* ---- 雷達圖 ---- */
+let chart;
+function refresh(){ drawChart(); checkAlerts(); syncTitle(); }
+function syncTitle(){
+  const name = document.getElementById('jobName').value.trim() || '尚未命名職缺';
+  const lv = document.getElementById('level').value;
+  document.getElementById('chartTitle').textContent = name + '｜理想人才畫像';
+  const bits=[];
+  const jt = document.getElementById('jobType').selectedOptions[0];
+  if(jt && jt.value) bits.push(jt.textContent);
+  if(lv) bits.push(LEVEL_LABEL[lv]);
+  const sal = document.getElementById('salary').value.trim(); if(sal) bits.push(sal);
+  document.getElementById('chartMeta').textContent = bits.join(' · ');
+}
+function drawChart(){
+  const labels = axesData.map(a=>a.name||'（未命名）');
+  const data = axesData.map(a=>Number(a.score)||0);
+  const ptColors = axesData.map(a=>CONDCOLOR[a.cond]||'#67708a');
+  const cfg = {
+    type:'radar',
+    data:{ labels, datasets:[{
+      label:'期待程度', data,
+      backgroundColor:'rgba(20,35,86,.15)', borderColor:'#142356', borderWidth:2,
+      pointBackgroundColor:ptColors, pointBorderColor:'#fff', pointBorderWidth:1.5,
+      pointRadius:5, pointHoverRadius:7,
+    }]},
+    options:{
+      responsive:true, maintainAspectRatio:true,
+      scales:{ r:{
+        min:0, max:5, ticks:{ stepSize:1, backdropColor:'transparent', color:'#9aa2ba', font:{size:10} },
+        grid:{ color:'#e2e6f0' }, angleLines:{ color:'#e2e6f0' },
+        pointLabels:{ color:'#142356', font:{size:12,weight:'700'} }
+      }},
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{
+        label:(c)=>{ const a=axesData[c.dataIndex]; const cn={must:'Must 必要',should:'Should 重要',nice:'Nice 加分'}[a.cond];
+          return ` 期待 ${a.score} 分 · ${cn}`; } } } }
+    }
+  };
+  if(chart){ chart.data=cfg.data; chart.options=cfg.options; chart.update(); }
+  else { chart = new Chart(document.getElementById('radar'), cfg); }
+}
+
+/* ---- 合理性自動提醒 ---- */
+function checkAlerts(){
+  const box = document.getElementById('alerts'); const out=[];
+  const named = axesData.filter(a=>a.name && a.name.trim());
+  const scored = named.filter(a=>Number(a.score)>0);
+  const level = document.getElementById('level').value;
+  const musts = named.filter(a=>a.cond==='must');
+
+  if(named.length < 4) out.push(['info','構面偏少，建議 6–8 個才畫得出有意義的形狀。']);
+  if(named.length > scored.length) out.push(['info','有構面尚未給分，雷達圖會凹一角。']);
+
+  // 全 Must / Must 過多
+  if(named.length>=4){
+    if(musts.length===named.length) out.push(['warn','所有構面都設為 Must-have —— 這等於要求「六邊形戰士」，招募市場會直接關機。請把可培養的降為 Should／Nice。']);
+    else if(musts.length>4) out.push(['warn',`Must-have 有 ${musts.length} 個，偏多。門檻越多、符合的人越少，建議收斂到 3–4 個真正不可退讓的。`]);
+  }
+
+  // 職級 vs 分數校準
+  if(level && scored.length){
+    const [lo,hi] = LEVEL_BAND[level];
+    const avg = scored.reduce((s,a)=>s+Number(a.score),0)/scored.length;
+    const high = scored.filter(a=>Number(a.score)>=4).length;
+    if(level==='junior' && (avg>3.3 || high>=Math.ceil(scored.length/2)))
+      out.push(['warn',`職級是 Junior，但多數構面期待偏高（平均 ${avg.toFixed(1)}）。這是用 Junior 預算召喚 Senior 靈魂 —— 請調整職級、薪資或降低期待。`]);
+    if((level==='senior'||level==='lead') && avg<3.2)
+      out.push(['warn',`職級是 ${LEVEL_LABEL[level]}，但整體期待偏低（平均 ${avg.toFixed(1)}）。確認一下是不是其實找 Mid 就好，別用高薪找低要求。`]);
+    if(!out.some(o=>o[0]==='warn'))
+      out.push(['ok',`職級與期待大致相稱（平均 ${avg.toFixed(1)}，${LEVEL_LABEL[level]} 建議落在 ${lo}–${hi} 分帶）。`]);
+  }
+
+  // 薪資缺
+  if(!document.getElementById('salary').value.trim() && named.length>=4)
+    out.push(['info','尚未填薪資區間。核心構面若多為 4 分以上，記得回頭確認薪資是否撐得起。']);
+
+  if(!out.length) out.push(['info','填入職務類型、職級與各構面分數後，這裡會出現對齊建議。']);
+
+  const ICON={warn:'⚠',info:'ℹ',ok:'✓'};
+  box.innerHTML = out.map(([t,m])=>`<div class="a ${t}"><span class="ico">${ICON[t]}</span><span>${m}</span></div>`).join('');
+}
+
+/* ---- 匯出 PNG ---- */
+function exportPNG(){
+  const name = document.getElementById('jobName').value.trim() || '職缺';
+  // 白底合成（Chart 透明背景）
+  const src = chart.canvas;
+  const c = document.createElement('canvas'); c.width=src.width; c.height=src.height;
+  const ctx = c.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,c.width,c.height); ctx.drawImage(src,0,0);
+  const a = document.createElement('a');
+  a.href = c.toDataURL('image/png'); a.download = `人才畫像_${name}.png`; a.click();
+}
+
+/* init */
+addAxis('',0,'should','');
+refresh();
+</script>
+</body>
+</html>
