@@ -3,37 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STARCO 前端展示｜Prototypes</title>
+<title>Kamiyu Lab 前端展示｜Prototypes</title>
 <style>
-  :root{ --navy:#142356; --navy2:#21478C; --gold:#FFBF00; --tint:#eef0f7;
-         --ink:#1f2430; --muted:#67708a; --line:#dde1ec; --bg:#f4f5f9; }
+  :root{ --blue:#1B4C9E; --blue2:#2E6BC6; --yellow:#FFC72C; --tint:#eef3fb;
+         --ink:#1f2430; --muted:#67708a; --line:#dde1ec; --bg:#f4f6fb; }
   *{box-sizing:border-box;}
   html{zoom:1.15;}
   body{margin:0;font-family:"PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;
        color:var(--ink);background:var(--bg);font-size:17px;line-height:1.7;}
-  .topbar{background:var(--navy);color:#fff;border-bottom:4px solid var(--gold);}
+  .topbar{background:var(--blue);color:#fff;border-bottom:4px solid var(--yellow);}
   .topbar .inner{max-width:920px;margin:0 auto;padding:16px 24px;}
   .brand{font-weight:900;font-size:20px;letter-spacing:.02em;}
-  .brand .dot{color:var(--gold);}
+  .brand .dot{color:var(--yellow);}
   .brand small{display:block;font-weight:600;font-size:12px;color:#b9c2e0;letter-spacing:.05em;margin-top:2px;}
   .wrap{max-width:920px;margin:0 auto;padding:30px 24px 80px;}
-  h1{font-size:26px;font-weight:900;color:var(--navy);margin:0 0 4px;}
+  h1{font-size:26px;font-weight:900;color:var(--blue);margin:0 0 4px;}
   .sub{color:var(--muted);font-size:15px;margin:0 0 24px;}
   .card{display:flex;align-items:center;gap:18px;background:#fff;border:1px solid var(--line);
-        border-left:5px solid var(--gold);border-radius:14px;padding:20px 22px;margin:0 0 16px;
-        box-shadow:0 2px 16px rgba(20,35,86,.05);text-decoration:none;color:inherit;transition:.15s;}
-  .card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(20,35,86,.12);border-left-color:var(--navy);}
+        border-left:5px solid var(--yellow);border-radius:14px;padding:20px 22px;margin:0 0 16px;
+        box-shadow:0 2px 16px rgba(27,76,158,.05);text-decoration:none;color:inherit;transition:.15s;}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(27,76,158,.12);border-left-color:var(--blue);}
   .card .ico{font-size:34px;flex:0 0 auto;}
   .card .body{flex:1;}
-  .card h2{font-size:19px;font-weight:900;color:var(--navy);margin:0 0 2px;}
+  .card h2{font-size:19px;font-weight:900;color:var(--blue);margin:0 0 2px;}
   .card p{font-size:14px;color:var(--muted);margin:0;}
-  .card .go{font-weight:800;color:var(--navy2);flex:0 0 auto;font-size:15px;}
+  .card .go{font-weight:800;color:var(--blue2);flex:0 0 auto;font-size:15px;}
   .foot{color:var(--muted);font-size:13px;margin-top:28px;border-top:1px solid var(--line);padding-top:14px;}
 </style>
 </head>
 <body>
 <div class="topbar"><div class="inner">
-  <div class="brand">STARCO<span class="dot">.</span> 前端展示<small>Prototypes · 給同事預覽的頁面</small></div>
+  <div class="brand">Kamiyu Lab<span class="dot">.</span> 前端展示<small>Prototypes · 前端原型展示</small></div>
 </div></div>
 <div class="wrap">
   <h1>頁面清單</h1>
@@ -48,9 +48,18 @@
     <span class="go">開啟 →</span>
   </a>
 
+  <a class="card" href="hr-service-desk.html">
+    <span class="ico">🛟</span>
+    <span class="body">
+      <h2>HR Service Desk｜員工關懷與申訴平台</h2>
+      <p>員工諮詢／事件提報／進度查詢／HR 後台，五個分頁的互動式原型；範例資料、無後端。</p>
+    </span>
+    <span class="go">開啟 →</span>
+  </a>
+
   <!-- 之後新增頁面：複製上面一張 <a class="card"> 卡片、改連結與文字即可 -->
 
-  <div class="foot">STARCO · 聯想感行銷科技</div>
+  <div class="foot">Powered by Kamiyu Lab</div>
 </div>
 </body>
 </html>
