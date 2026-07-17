@@ -138,6 +138,7 @@
       <button data-v="general">諮詢協助</button>
       <button data-v="report">事件提報</button>
       <button data-v="track">案件進度</button>
+      <button data-v="org">組織圖</button>
       <button data-v="hr">HR 後台</button>
     </div>
   </div>
@@ -397,6 +398,16 @@
     </div>
   </div>
 
+  <!-- ════════ 組織圖 ════════ -->
+  <div class="view" id="v-org">
+    <h1>組織架構圖</h1>
+    <p class="sub">全公司組織樹狀圖：可搜尋姓名／職位、逐部門收合展開、點卡片看詳情、右下角看本月新進與壽星。範例資料、無後端。</p>
+    <div style="border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(27,76,158,.05);background:#fff;">
+      <iframe id="orgFrame" title="組織架構圖" style="display:block;width:100%;height:80vh;border:0;"></iframe>
+    </div>
+    <p class="muted" style="font-size:13.5px;margin-top:10px;">💡 組織圖較寬，可在框內左右／上下捲動查看完整結構。</p>
+  </div>
+
   <!-- ════════ HR 後台 ════════ -->
   <div class="view" id="v-hr">
     <h1>HR 後台</h1>
@@ -462,6 +473,10 @@
     if(v==='report'){                                  // 每次進入事件提報，先回到通報前確認
       document.getElementById('reportGate').style.display='block';
       document.getElementById('reportForm').style.display='none';
+    }
+    if(v==='org'){                                     // 第一次進組織圖才載入 iframe（省首載）
+      var f=document.getElementById('orgFrame');
+      if(f && !f.src) f.src='org-chart.html';
     }
     window.scrollTo({top:0,behavior:'smooth'});
   }
