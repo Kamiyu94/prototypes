@@ -7,15 +7,17 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   :root{
-    --navy:#142356; --navy2:#21478C; --gold:#FFBF00;
+    --navy:#1B4C9E; --navy2:#2E6BC6; --gold:#FFC72C;
     --tint:#eef0f7; --ink:#1f2430; --muted:#67708a; --line:#dde1ec;
     --ok:#1f7a4d; --warn:#b8860b; --danger:#c0392b; --bg:#f4f5f9;
     --green:#1f9d55; --yellow:#e0a800; --orange:#e8710a; --red:#c0392b;
   }
   *{box-sizing:border-box;}
   html{zoom:1.15;}
+  html,body{height:100%;}
   body{margin:0;font-family:"PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;
-       color:var(--ink);background:var(--bg);font-size:17px;line-height:1.7;}
+       color:var(--ink);background:var(--bg);font-size:17px;line-height:1.7;
+       display:flex;flex-direction:column;}
 
   .topbar{background:var(--navy);color:#fff;border-bottom:4px solid var(--gold);position:sticky;top:0;z-index:50;}
   .topbar .inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:12px 24px;flex-wrap:wrap;}
@@ -24,19 +26,30 @@
   .brand small{display:block;font-weight:600;font-size:11px;color:#b9c2e0;letter-spacing:.05em;}
   .topbar .acts{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;}
 
-  .wrap{max-width:1240px;margin:0 auto;padding:24px 24px 90px;}
+  .wrap{max-width:1240px;width:100%;margin:0 auto;padding:20px 24px 16px;
+        flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow:hidden;}
   h1{font-size:28px;font-weight:900;color:var(--navy);margin:0 0 4px;}
   .sub{color:var(--muted);font-size:15px;margin:0 0 18px;}
   h3{font-size:17px;font-weight:800;color:var(--navy2);margin:0 0 12px;padding-bottom:6px;border-bottom:2px solid var(--tint);
      display:flex;align-items:center;gap:8px;}
   .bignum{font-size:26px;font-weight:900;color:var(--tint);margin-right:2px;-webkit-text-stroke:1px #cdd3e6;}
 
-  .layout{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:start;}
-  @media(max-width:960px){.layout{grid-template-columns:1fr;}}
+  .layout{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch;
+          flex:1 1 auto;min-height:0;}
+  .col-left,.right-col{overflow-y:auto;min-height:0;padding-right:6px;}
+  .col-left{padding-right:12px;}
 
   .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 20px;
-        box-shadow:0 2px 16px rgba(20,35,86,.05);}
-  .right-col{position:sticky;top:78px;}
+        box-shadow:0 2px 16px rgba(27,76,158,.05);}
+  .col-left .card:last-child,.right-col .card:last-child{margin-bottom:2px;}
+  /* 窄螢幕：改回整頁單欄捲動，不要兩個小捲動框 */
+  @media(max-width:960px){
+    html,body{height:auto;}
+    body{display:block;}
+    .wrap{overflow:visible;display:block;}
+    .layout{grid-template-columns:1fr;min-height:0;}
+    .col-left,.right-col{overflow:visible;padding-right:0;}
+  }
 
   label.f{display:block;font-weight:800;color:var(--navy);margin:14px 0 6px;font-size:15px;}
   label.f:first-child{margin-top:0;}
@@ -112,15 +125,17 @@
 
   @media print{
     .topbar .acts,.no-print{display:none!important;}
-    html{zoom:1;} body{background:#fff;}
-    .layout{grid-template-columns:1fr 1fr;}
+    html{zoom:1;} html,body{height:auto;} body{background:#fff;display:block;}
+    .wrap{overflow:visible;display:block;}
+    .layout{grid-template-columns:1fr 1fr;min-height:0;}
+    .col-left,.right-col{overflow:visible;}
     .card{box-shadow:none;break-inside:avoid;}
   }
 </style>
 </head>
 <body>
 <div class="topbar"><div class="inner">
-  <div class="brand">STARCO<span class="dot">.</span> 人才畫像<small>用人主管需求設定 · 職務雷達圖</small></div>
+  <div class="brand">Kamiyu Lab<span class="dot">.</span> 人才畫像<small>用人主管需求設定 · 職務雷達圖</small></div>
   <div class="acts">
     <button class="btn gold sm" onclick="exportPNG()">⬇ 匯出 PNG</button>
     <button class="btn ghost sm" onclick="window.print()">🖨 列印 / PDF</button>
@@ -133,7 +148,7 @@
 
   <div class="layout">
     <!-- 左：輸入 -->
-    <div>
+    <div class="col-left">
       <div class="card">
         <h3><span class="bignum">1</span> 職缺基本資料</h3>
         <label class="f">職缺名稱 <span class="req">*</span></label>
@@ -347,7 +362,7 @@ function drawChart(){
     type:'radar',
     data:{ labels, datasets:[{
       label:'期待程度', data,
-      backgroundColor:'rgba(20,35,86,.15)', borderColor:'#142356', borderWidth:2,
+      backgroundColor:'rgba(27,76,158,.15)', borderColor:'#1B4C9E', borderWidth:2,
       pointBackgroundColor:ptColors, pointBorderColor:'#fff', pointBorderWidth:1.5,
       pointRadius:5, pointHoverRadius:7,
     }]},
@@ -356,7 +371,7 @@ function drawChart(){
       scales:{ r:{
         min:0, max:5, ticks:{ stepSize:1, backdropColor:'transparent', color:'#9aa2ba', font:{size:10} },
         grid:{ color:'#e2e6f0' }, angleLines:{ color:'#e2e6f0' },
-        pointLabels:{ color:'#142356', font:{size:12,weight:'700'} }
+        pointLabels:{ color:'#1B4C9E', font:{size:12,weight:'700'} }
       }},
       plugins:{ legend:{display:false}, tooltip:{ callbacks:{
         label:(c)=>{ const a=axesData[c.dataIndex]; const cn={must:'Must 必要',should:'Should 重要',nice:'Nice 加分'}[a.cond];
