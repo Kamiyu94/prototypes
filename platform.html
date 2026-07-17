@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR 平台｜功能總覽</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛟</text></svg>">
+<style>
+  :root{
+    --blue:#1B4C9E; --blue2:#2E6BC6; --yellow:#FFC72C; --gold:#C8901A;
+    --tint:#eef3fb; --ink:#1f2430; --muted:#5b6480; --line:#dbe1ee;
+    --ok:#1f7a4d; --bg:#f4f6fb;
+    --font:"PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased;}
+  a{color:var(--blue2);}
+
+  /* topbar */
+  .topbar{background:var(--blue);color:#fff;border-bottom:3px solid var(--yellow);position:sticky;top:0;z-index:50;}
+  .topbar .inner{max-width:1080px;margin:0 auto;padding:15px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .brand{font-weight:900;font-size:20px;letter-spacing:.02em;}
+  .brand .dot{color:var(--yellow);}
+  .brand small{display:block;font-weight:600;font-size:12px;color:#b9c8e6;letter-spacing:.05em;margin-top:2px;}
+  .topbar .home{margin-left:auto;font-size:14px;font-weight:700;color:#cdd8ee;text-decoration:none;
+                border:1px solid #3f5c93;border-radius:999px;padding:7px 15px;transition:.15s;}
+  .topbar .home:hover{border-color:var(--yellow);color:var(--yellow);}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px 90px;}
+
+  /* hero */
+  .hero{padding:56px 0 40px;border-bottom:1px solid var(--line);}
+  .hero .eyebrow{display:inline-block;background:var(--yellow);color:var(--blue);font-weight:900;font-size:13px;
+                 letter-spacing:.08em;padding:4px 14px;border-radius:999px;margin-bottom:18px;}
+  .hero h1{font-size:42px;font-weight:900;color:var(--blue);letter-spacing:.01em;line-height:1.25;margin-bottom:14px;}
+  .hero p{font-size:18px;color:var(--muted);max-width:760px;}
+  .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;}
+  .btn{font:inherit;font-weight:800;font-size:16px;text-decoration:none;border-radius:11px;padding:13px 24px;
+       display:inline-flex;align-items:center;gap:8px;transition:.15s;cursor:pointer;border:0;}
+  .btn.primary{background:var(--blue);color:#fff;}
+  .btn.primary:hover{background:#143a7a;}
+  .btn.gold{background:var(--yellow);color:var(--blue);}
+  .btn.gold:hover{filter:brightness(.96);}
+  .btn.ghost{background:#fff;color:var(--blue);border:2px solid var(--blue);}
+  .btn.ghost:hover{background:var(--tint);}
+
+  /* product section */
+  .prod{padding:46px 0;border-bottom:1px solid var(--line);}
+  .prod .lead{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:8px;}
+  .prod .ic{font-size:38px;line-height:1;flex:0 0 auto;}
+  .prod .num{font-size:64px;font-weight:900;color:var(--tint);line-height:.8;margin-left:auto;user-select:none;}
+  .prod h2{font-size:29px;font-weight:900;color:var(--blue);}
+  .prod .tag{color:var(--muted);font-size:16px;margin-top:2px;}
+  .prod .desc{font-size:17px;color:#3a4258;max-width:820px;margin:16px 0 26px;}
+
+  .feat{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:760px){.feat{grid-template-columns:1fr;}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;
+        box-shadow:0 2px 16px rgba(27,76,158,.05);border-left:5px solid var(--yellow);}
+  .card h3{font-size:18px;font-weight:900;color:var(--blue);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+  .card ul{list-style:none;}
+  .card li{position:relative;padding:5px 0 5px 22px;font-size:15.5px;color:#39415a;}
+  .card li::before{content:"";position:absolute;left:2px;top:13px;width:7px;height:7px;border-radius:2px;background:var(--blue2);}
+  .card li b{color:var(--ink);}
+
+  .try{margin-top:26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+       background:var(--tint);border-radius:12px;padding:16px 20px;}
+  .try .t{font-weight:800;color:var(--blue);font-size:16px;}
+  .try .t small{display:block;font-weight:500;color:var(--muted);font-size:13.5px;margin-top:2px;}
+  .try .spacer{flex:1;}
+
+  .foot{padding:34px 0 0;text-align:center;color:var(--muted);font-size:14px;line-height:2;}
+  .foot .pw{display:inline-block;background:var(--yellow);color:var(--blue);font-weight:900;font-size:13px;
+            letter-spacing:.07em;padding:4px 16px;border-radius:999px;}
+  .note{background:#fff8ec;border:1px solid #f0dca8;border-left:5px solid var(--yellow);border-radius:12px;
+        padding:14px 18px;font-size:14.5px;color:#6b5518;margin-top:30px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="inner">
+    <div class="brand">Kamiyu Lab<span class="dot">.</span><small>HR 平台 · 功能總覽</small></div>
+    <a class="home" href="index.html">← 回展示站首頁</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <span class="eyebrow">互動式原型 · 範例資料</span>
+    <h1>一套跑在 Google 帳號上的<br>人資服務與組織管理平台</h1>
+    <p>員工從單一入口提出諮詢、申訴與離職；HR 在後台受理、處理、結案、留證；一張 Google Sheet 同時驅動全公司組織圖與試用期自動提醒。零額外主機、零額外帳密，限公司網域登入。</p>
+    <div class="ctas">
+      <a class="btn primary" href="hr-service-desk.html">🛟 體驗 HR Service Desk →</a>
+      <a class="btn ghost" href="org-chart.html">📇 看組織架構圖 →</a>
+    </div>
+  </section>
+
+  <!-- ══ 產品一：HR Service Desk ══ -->
+  <section class="prod">
+    <div class="lead">
+      <span class="ic">🛟</span>
+      <div>
+        <h2>HR Service Desk｜員工關懷與申訴平台</h2>
+        <div class="tag">諮詢・職場關懷・霸凌／性騷擾申訴・離職 — 單一入口，全流程處理</div>
+      </div>
+      <span class="num">01</span>
+    </div>
+    <p class="desc">員工端一個入口收四類需求，HR 端從受理到結案全程留痕，並用自動寄信與每日到期掃描把「合規期限」變成系統在追、而不是靠人記。</p>
+
+    <div class="feat">
+      <div class="card">
+        <h3>👥 員工端 · 四個服務入口</h3>
+        <ul>
+          <li><b>諮詢協助／職場關懷</b>：制度、出勤、薪酬、身心關懷；可自評急迫性決定接案速度</li>
+          <li><b>事件提報（申訴）</b>：霸凌／性騷擾／不法侵害，含通報前分流閘與迴避確認</li>
+          <li><b>離職申請</b>：依勞基法自動試算年資、預告期與最早可離職日</li>
+          <li><b>案件進度查詢</b>：需編號＋Email 對得上，申訴案只回簡化狀態保密</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🗂️ HR 後台 · 受理到結案</h3>
+        <ul>
+          <li><b>案件處理</b>：線上受理／不受理、處理中、結案，狀態即時更新</li>
+          <li><b>儀表板</b>：待受理、處理中、本月結案即時統計</li>
+          <li><b>稽核日誌</b>：append-only 留痕，每次動作不可竄改</li>
+          <li><b>離職回報總部信</b>：結案自動產生通知信，收件人點名冊免打字</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>⚙️ 自動化與合規</h3>
+        <ul>
+          <li><b>自動寄信</b>：送出即寄收據＋通知 HR；受理／結案／退回都觸發通知</li>
+          <li><b>每日到期提醒</b>：掃描逾期、將屆、未受理、申復期、離職將屆，彙整推給 HR</li>
+          <li><b>合規對齊</b>：處理期限依公司人數、受理時限依急迫性、申復期自動計算</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🔒 安全模型</h3>
+        <ul>
+          <li>網頁與資料同源，<b>沒有對外公開的 API</b></li>
+          <li>非公司帳號連登入牆都過不了；員工完全碰不到試算表</li>
+          <li>資料只留在 HR 帳號的 Google Drive</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="try">
+      <div class="t">想直接點點看？<small>員工端與 HR 後台都能操作（範例資料、無實際後端）</small></div>
+      <span class="spacer"></span>
+      <a class="btn gold" href="hr-service-desk.html">立即體驗 →</a>
+    </div>
+  </section>
+
+  <!-- ══ 產品二：組織圖平台 ══ -->
+  <section class="prod">
+    <div class="lead">
+      <span class="ic">📇</span>
+      <div>
+        <h2>組織圖平台｜動態組織圖與人員管理</h2>
+        <div class="tag">一張 Google Sheet，同時驅動組織圖、人員管理台與試用期自動提醒</div>
+      </div>
+      <span class="num">02</span>
+    </div>
+    <p class="desc">全公司看到的圖、HR 改的資料、系統寄的提醒同一個真相來源、即時連動。同一個網址依權限自動切換成公開圖／HR 圖／管理台／試用期一覽四種檢視。</p>
+
+    <div class="feat">
+      <div class="card">
+        <h3>🗺️ 組織圖（所有檢視共用）</h3>
+        <ul>
+          <li><b>樹狀階層圖</b>：CEO → 部門 → 組 → 成員，自動畫連接線</li>
+          <li><b>部門分色、逐層收合</b>：整間／單部門／單組一鍵展開收合</li>
+          <li><b>搜尋高亮</b>、點卡片開詳情、hover tooltip</li>
+          <li><b>人力配置適足率</b>：現職÷編制自動算，低於門檻變色示警</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🔑 四種檢視 · 依權限自動切換</h3>
+        <ul>
+          <li><b>公開組織圖</b>：全員可看、唯讀、去敏</li>
+          <li><b>HR 組織圖</b>：HR 可就地改狀態／試用期／Email／隸屬</li>
+          <li><b>人員管理台</b>：新增／編輯／刪除、批次改生日、處理兼任職缺</li>
+          <li><b>試用期一覽</b>：主管本人或 HR 可看自己團隊</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🧩 人員狀態模型</h3>
+        <ul>
+          <li><b>待招募＝開缺</b>：人離開改此狀態，清姓名留職缺</li>
+          <li><b>隱藏狀態</b>（育嬰留停等）：暫時從圖上移除、可復原</li>
+          <li><b>防呆</b>：主管設成消失狀態會擋下並警告整組會消失</li>
+          <li>本月<b>新進與壽星</b>浮動提示，點名字跳到圖上定位</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>⏰ 試用期自動提醒（排程）</h3>
+        <ul>
+          <li>試用期＝<b>到職日＋89 天</b>自動算，可手動延長</li>
+          <li><b>每日掃描</b>：到期前 14 天內自動寄考核訪談提醒，漏跑自動補寄</li>
+          <li><b>每週預告</b>給 HR，沒有人也照寄＝系統心跳</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="try">
+      <div class="t">看組織圖長怎樣？<small>公開唯讀版（虛構公司假資料）；也是 HR Service Desk 裡的「組織圖」分頁</small></div>
+      <span class="spacer"></span>
+      <a class="btn gold" href="org-chart.html">立即體驗 →</a>
+    </div>
+  </section>
+
+  <div class="note">
+    ℹ️ 本站為<b>互動式原型展示</b>：畫面與流程可操作，但使用範例資料、虛構人名、無實際後端，不會真的寄信或寫入任何資料。組織圖的 HR 管理後台與試用期提醒為連接真實資料的內部工具，未放入公開展示。
+  </div>
+
+  <div class="foot">
+    HR 平台 · 功能總覽 · 互動式原型 Demo<br>
+    <span class="pw">Powered by Kamiyu Lab</span>
+  </div>
+
+</div>
+</body>
+</html>
