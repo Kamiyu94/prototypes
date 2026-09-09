@@ -1,74 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kamiyu Lab 前端展示｜Prototypes</title>
-<style>
-  :root{ --blue:#1B4C9E; --blue2:#2E6BC6; --yellow:#FFC72C; --tint:#eef3fb;
-         --ink:#1f2430; --muted:#67708a; --line:#dde1ec; --bg:#f4f6fb; }
-  *{box-sizing:border-box;}
-  html{zoom:1.15;}
-  body{margin:0;font-family:"PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;
-       color:var(--ink);background:var(--bg);font-size:17px;line-height:1.7;}
-  .topbar{background:var(--blue);color:#fff;border-bottom:4px solid var(--yellow);}
-  .topbar .inner{max-width:920px;margin:0 auto;padding:16px 24px;}
-  .brand{font-weight:900;font-size:20px;letter-spacing:.02em;}
-  .brand .dot{color:var(--yellow);}
-  .brand small{display:block;font-weight:600;font-size:12px;color:#b9c2e0;letter-spacing:.05em;margin-top:2px;}
-  .wrap{max-width:920px;margin:0 auto;padding:30px 24px 80px;}
-  h1{font-size:26px;font-weight:900;color:var(--blue);margin:0 0 4px;}
-  .sub{color:var(--muted);font-size:15px;margin:0 0 24px;}
-  .card{display:flex;align-items:center;gap:18px;background:#fff;border:1px solid var(--line);
-        border-left:5px solid var(--yellow);border-radius:14px;padding:20px 22px;margin:0 0 16px;
-        box-shadow:0 2px 16px rgba(27,76,158,.05);text-decoration:none;color:inherit;transition:.15s;}
-  .card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(27,76,158,.12);border-left-color:var(--blue);}
-  .card .ico{font-size:34px;flex:0 0 auto;}
-  .card .body{flex:1;}
-  .card h2{font-size:19px;font-weight:900;color:var(--blue);margin:0 0 2px;}
-  .card p{font-size:14px;color:var(--muted);margin:0;}
-  .card .go{font-weight:800;color:var(--blue2);flex:0 0 auto;font-size:15px;}
-  .foot{color:var(--muted);font-size:13px;margin-top:28px;border-top:1px solid var(--line);padding-top:14px;}
-</style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kris Lu 呂茗毅｜企業 AI 落地・工作流程整合</title>
+<meta name="description" content="企業想導入 AI，卻不知道從哪裡開始、如何接進工作流程？從使用情境、系統整合到團隊採用，透過 Kris Lu 的方法與實作案例，看見可執行的落地路徑。">
+<meta name="theme-color" content="#0a1226"><link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<div class="topbar"><div class="inner">
-  <div class="brand">Kamiyu Lab<span class="dot">.</span> 前端展示<small>Prototypes · 前端原型展示</small></div>
-</div></div>
-<div class="wrap">
-  <h1>頁面清單</h1>
-  <p class="sub">以下為前端原型頁，點卡片即可開啟。純前端展示、無後端資料。</p>
+<a class="skip" href="#main">跳至主要內容</a>
+<header class="site-header"><a class="wordmark" href="index.html" aria-label="Kris Lu 作品集首頁">Kris Lu<span class="brand-dot">.</span><span class="wordmark-sub">呂茗毅</span></a><nav aria-label="主要導覽"><a href="#approach">AI 如何落地</a><a href="#work">案例與實作</a><a href="#about">關於我</a><a class="nav-contact" href="#contact">聊聊你們的挑戰 <span aria-hidden="true">↗</span></a></nav></header>
+<main id="main">
+<section class="hero page-width">
+  <div class="hero-copy">
+    <p class="eyebrow"><span class="status-dot"></span> FROM AI POTENTIAL TO EVERYDAY WORK</p>
+    <p class="personal-role">企業 AI 導入 · 工作流程整合 · 團隊採用</p>
+    <h1>想導入 AI，<br>卻不知道如何<br><span class="title-accent">接進工作流程？</span></h1>
+    <p class="hero-description">知道 AI 有潛力，卻不確定該從哪個任務開始。工具試過了，產出怎麼接回既有系統、誰來確認、同仁如何持續使用，仍然沒有清楚的做法。</p>
+    <div class="actions">
+      <a class="button primary" href="#approach">從工作流程找導入切入點 <span aria-hidden="true">↘</span></a>
+      <a class="text-link" href="#work">看看具體案例 <span aria-hidden="true">→</span></a>
+    </div>
+    <p class="hero-footnote">從一個具體場景開始，把資料、工具、人與交付流程接起來。</p>
+  </div>
+  <aside class="hero-proof" aria-label="企業導入 AI 的三個常見卡點">
+    <div class="proof-top"><span>WHERE ADOPTION GETS STUCK</span><span class="outline-label">導入的三個卡點</span></div>
+    <p class="proof-question">AI 能做很多事。<br>但在公司裡，<br>下一步該怎麼做？</p>
+    <div class="pipeline">
+      <div><span class="pipeline-num">01</span><span><strong>不知道從哪裡開始</strong><small>需求很多，哪些場景值得先投入與驗證？</small></span></div>
+      <div><span class="pipeline-num">02</span><span><strong>工具與工作流程接不起來</strong><small>資料散在不同系統，產出仍要人工搬運。</small></span></div>
+      <div><span class="pipeline-num">03</span><span><strong>試用之後，沒能持續用下去</strong><small>缺少明確分工、操作方式與回饋機制。</small></span></div>
+    </div>
+    <a href="#approach" class="proof-link">把導入問題，拆成可執行的步驟 <span aria-hidden="true">↘</span></a>
+  </aside>
+</section>
 
-  <a class="card" href="platform.html" style="border-left-color:var(--blue);background:linear-gradient(90deg,#f2f6fd,#fff 40%);">
-    <span class="ico">⭐</span>
-    <span class="body">
-      <h2>HR 平台｜功能總覽　<span style="display:inline-block;background:var(--yellow);color:var(--blue);font-size:12px;font-weight:900;padding:2px 10px;border-radius:999px;vertical-align:middle;">先看這裡</span></h2>
-      <p>一頁看懂整個平台：HR 服務台（申訴／諮詢／離職／後台／自動化）＋ 組織圖平台（動態組織圖／人員管理／試用期提醒），附「立即體驗」連到各 demo。</p>
-    </span>
-    <span class="go">開啟 →</span>
-  </a>
 
-  <a class="card" href="hr-service-desk.html">
-    <span class="ico">🛟</span>
-    <span class="body">
-      <h2>HR Service Desk｜員工關懷與申訴平台</h2>
-      <p>員工諮詢／事件提報／進度查詢／組織圖／HR 後台，六個分頁的互動式原型；範例資料、無後端。</p>
-    </span>
-    <span class="go">開啟 →</span>
-  </a>
+<section id="approach" class="approach-section">
+  <div class="page-width">
+    <div class="section-heading">
+      <div><p class="eyebrow">01 / FROM PROBLEM TO WORKFLOW</p><h2>讓 AI 落地，<br>先把工作怎麼完成說清楚。</h2></div>
+      <p>從一個具體任務開始：誰提供輸入、誰確認結果、<br>產出放到哪裡，以及下一個人如何接手。</p>
+    </div>
+    <p class="workflow-intro">把任務拆成五個環節，就能討論 AI 適合協助哪一步、需要哪些資料，以及哪些判斷仍由人負責，再選擇合適的工具與驗證方式。</p>
+    <ol class="workflow-chain" aria-label="AI 導入工作流程的五個環節">
+      <li><span class="workflow-index">INPUT / 01</span><h3>日常任務</h3><p>需求、文件、營運問題</p></li>
+      <li><span class="workflow-index">ASSIST / 02</span><h3>AI 協作</h3><p>整理、分析、產生初稿</p></li>
+      <li><span class="workflow-index">REVIEW / 03</span><h3>人員確認</h3><p>核對依據、處理例外</p></li>
+      <li><span class="workflow-index">HANDOFF / 04</span><h3>接回工作系統</h3><p>文件、任務、資料與紀錄</p></li>
+      <li><span class="workflow-index">ADOPT / 05</span><h3>持續使用</h3><p>操作說明、回饋與改善</p></li>
+    </ol>
+    <div class="workflow-evidence">
+      <article><p class="eyebrow">AI ADOPTION / 團隊採用</p><h3>把 AI 帶進分析、文件與產品規劃。</h3><p>我規劃可重複使用的 AI 工作流程，完成約 11 位同仁的導入與操作說明，讓工具有明確的使用情境。</p><p class="contribution">我的工作：情境規劃、流程設計、導入與操作說明。</p></article>
+      <article><p class="eyebrow">SYSTEM INTEGRATION / 系統整合</p><h3>讓分散資訊回到 PM 的工作裡。</h3><p>我透過 Monday API 整合 200 多個進行中專案，並建立 Monday 到 Notion 的資料同步流程，改善 PM 取得與追蹤資訊的方式。</p><p class="contribution">我的工作：API 資料整合與專案資訊同步。</p></article>
+    </div>
+    <p class="workflow-note">五個環節呈現導入思路；兩則案例為獨立交付經歷，內部資料與操作環境未公開。</p>
+  </div>
+</section>
 
-  <a class="card" href="talent-radar.html">
-    <span class="ico">📊</span>
-    <span class="body">
-      <h2>職務人才畫像雷達圖</h2>
-      <p>用人主管設定職缺需求 → 即時產出能力雷達圖，含合理性自動提醒。</p>
-    </span>
-    <span class="go">開啟 →</span>
-  </a>
+<section class="evidence page-width" aria-label="履歷中的交付經驗"><div class="evidence-intro">從原型到採用的<br>實作經驗。</div><div><strong>約 2 <span>週</span></strong><p>GenBI 構想 → 可操作 MVP</p></div><div><strong>200<span>＋</span></strong><p>進行中專案的 API 資料整合</p></div><div><strong>約 11 <span>位</span></strong><p>同仁的 AI 工具導入與操作說明</p></div><p class="evidence-note">依個人專案經歷；作品展示範圍於各案例內說明。</p></section>
 
-  <!-- 之後新增頁面：複製上面一張 <a class="card"> 卡片、改連結與文字即可 -->
+<section id="work" class="work-section page-width">
+<div class="section-heading"><div><p class="eyebrow">02 / SELECTED WORK</p><h2>從具體案例，<br><span class="muted-heading">看問題如何被拆解與解決。</span></h2></div><p>從 AI 問答、流程建置到需求對齊，<br>每個案例都能看到設計取捨、合作分工與操作成果。</p></div>
+<div class="problem-links" aria-label="依問題選擇作品"><a href="genbi.html">讓答案可核對 <span>01 ↗</span></a><a href="hr-case.html">把流程接起來 <span>02 ↗</span></a><a href="talent-case.html">讓需求有共識 <span>03 ↗</span></a></div>
+<article class="featured-case"><div class="case-copy"><p class="case-kicker">01 / AI × DATA <span class="badge">可操作 Demo</span></p><h3>讓營運問答，<br>有跡可循。</h3><p class="case-name">GenBI Mini · 可信營運問答</p><p>「這個月業績怎麼樣？」難的除了理解問句，還有統一計算口徑、處理髒資料，以及說清楚答案怎麼來。</p><div class="case-decision"><span>接進工作流程的關鍵</span><strong>先對齊資料與計算口徑，讓使用者能核對答案。</strong></div><div class="tags"><span>語意與資料分層</span><span>受控 SQL</span><span>未知問題拒答</span></div><a class="button primary" href="genbi.html">看案例與體驗指引 <span aria-hidden="true">↗</span></a><small class="case-scope">虛構營運資料 · 公開縮小版 Demo</small></div><div class="data-story"><div class="data-story-label">THE DECISION BEHIND THE DEMO</div><h4>數字可信，<br>才有下一步決策。</h4><div class="equation"><span>銷售金額</span><b>＋</b><span>EC 價差</span><b>＝</b><strong>淨營業額</strong></div><div class="trace-row"><span>資料</span><p>來源 → 清洗 → 分析資料庫</p><span aria-hidden="true">↘</span></div><div class="trace-row"><span>問句</span><p>已知意圖 → 白名單查詢</p><span aria-hidden="true">↘</span></div><div class="trace-row"><span>答案</span><p>表格、圖表與可核對的 SQL</p><span aria-hidden="true">✓</span></div><p class="diagram-note">設計流程示意，實際結果請見 Demo。</p></div></article>
+<div class="case-grid"><article class="project-card"><p class="case-kicker">02 / WORKFLOW × GOVERNANCE <span class="badge">互動原型</span></p><h3>讓一件員工需求，<br>有入口，也有下文。</h3><p class="case-name">HR Service Desk · 員工服務與案件流程</p><p>把提報、分流、查詢與 HR 受理串成一段流程，讓使用者知道下一步，也讓處理者看見責任與紀錄。</p><p class="work-relevance">先釐清分工、狀態與例外，才能判斷哪些環節適合加入 AI 協助。此案例展示流程原型。</p><div class="mini-flow" aria-label="流程">提報 <span>→</span> 分流 <span>→</span> 受理 <span>→</span> 追蹤</div><a class="text-link" href="hr-case.html">沿著一件案件，看完整流程 <span aria-hidden="true">↗</span></a><small>規劃 Emily Ko · 建置 Kamiyu Lab · 範例資料</small></article><article class="project-card"><p class="case-kicker">03 / DISCOVERY × ALIGNMENT <span class="badge">互動原型</span></p><h3>把「什麼都要」，<br>變成可以討論的需求。</h3><p class="case-name">人才畫像雷達圖 · 職缺需求對齊</p><p>讓能力期待與必要條件具體可見，用即時提醒指出規格衝突，讓主管與 HR 在招募前先對齊。</p><p class="work-relevance">把模糊期待變成明確尺度，讓後續實作有共同依據。此案例使用規則檢查協助需求對齊。</p><div class="priority-legend"><span><i class="priority-dot must"></i>必要 Must</span><span><i class="priority-dot should"></i>重要 Should</span><span><i class="priority-dot nice"></i>加分 Nice</span></div><a class="text-link" href="talent-case.html">改一個條件，看取捨如何浮現 <span aria-hidden="true">↗</span></a><small>規劃 Emily Ko · 建置 Kamiyu Lab · 需求形式檢查</small></article></div>
+</section>
 
-  <div class="foot">Powered by Kamiyu Lab</div>
-</div>
-</body>
-</html>
+<section id="about" class="about-section page-width">
+  <div><p class="eyebrow">03 / MY BACKGROUND</p><h2>我的起點是<br>產品、專案與人。<br><span class="title-accent">現在，把 AI 帶進來。</span></h2></div>
+  <div class="about-body">
+    <p class="about-lead">我是呂茗毅 Kris Lu。過去的工作讓我熟悉需求訪談、產品定義、跨部門協作與團隊管理；現在，我把這些經驗用在企業 AI 導入。</p>
+    <p>我習慣先理解一件工作為什麼做不順，再判斷需要 AI、流程調整，還是系統整合。我也使用 Claude Code、ChatGPT 與 Codex 協作分析、原型實作及文件，讓討論盡早有具體成果。</p>
+    <div class="experience-row"><span>產品經驗：把語言變成可執行規則</span><p>在語音找工作產品中，負責 NLP 意圖分類、實體對應與例外處理等產品定義，協同工程推動上線。</p></div>
+    <div class="experience-row"><span>交付經驗：讓業務與工程說同一件事</span><p>從客戶訪談到規格、原型與方案規劃，也曾以英文協調海外工程團隊的需求、時程與交付。</p></div>
+    <div class="experience-row"><span>管理經驗：讓新的工作方式運作起來</span><p>建立資料分析團隊、職責、SOP 與訓練機制，具最多約 16 人的團隊管理經驗。</p></div>
+    <p class="about-scope">我希望在企業 AI 導入／FDE 角色中，持續串起需求探索、原型驗證、系統整合與使用者採用。各作品另列出實作範圍與合作分工。</p>
+  </div>
+</section>
+<section id="contact" class="contact-section"><div class="page-width contact-inner"><div><p class="eyebrow">LET’S MAKE IT WORK</p><h2>你們正在找一位<br>能把 AI 帶進工作流的人嗎？</h2><p>我能參與需求釐清、原型驗證、整合協作與團隊導入。<br class="desktop-only">歡迎和我聊聊職務，以及你們希望改善的那一段工作。</p></div><a class="button light" href="https://www.linkedin.com/in/kamiyux" target="_blank" rel="noopener noreferrer">在 LinkedIn 聯絡我 <span aria-hidden="true">↗</span></a></div></section>
+</main><footer class="page-width site-footer"><span>Kris Lu <b>×</b> Kamiyu Lab</span><p>企業 AI 導入 · 系統整合 · 產品交付</p><a href="#main">回到頂端 ↑</a></footer>
+</body></html>
