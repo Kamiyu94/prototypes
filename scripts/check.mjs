@@ -37,11 +37,11 @@ console.log(`PASS: ${pages.length} pages, ${links} local links/anchors/assets, $
 // Discoverability regression: the home page must expose every public work
 // without requiring JavaScript or a detour through a case study.
 const home=await readFile(resolve(root,'index.html'),'utf8');
-for(const href of ['hr-service-desk.html','platform.html','org-chart.html','talent-radar.html','genbi.html','hr-case.html','talent-case.html','voxlog.html','https://genbi-mini.streamlit.app/','https://github.com/Kamiyu94/VoxLog#readme']){
+for(const href of ['pmo-intake.html','project-dashboard.html','https://kamiyu94.github.io/pmo-intake-demo/','https://kamiyu94.github.io/project-portfolio-demo/','hr-service-desk.html','platform.html','org-chart.html','talent-radar.html','genbi.html','hr-case.html','talent-case.html','voxlog.html','https://genbi-mini.streamlit.app/','https://github.com/Kamiyu94/VoxLog#readme']){
  assert(home.includes(`href="${href}"`),`Homepage missing direct work entry: ${href}`);
 }
 assert(home.indexOf('id="work"')<home.indexOf('id="experience"'),'Work must precede resume content');
-for(const page of ['index.html','voxlog.html']){
+for(const page of ['index.html','voxlog.html','pmo-intake.html','project-dashboard.html']){
  const html=await readFile(resolve(root,page),'utf8');
  for(const tag of html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g))assert(tag[0].includes('rel="noopener noreferrer"'),`${page}: unsafe new tab`);
  assert(!/爭鮮|STARCO|kamiyux@gmail|937.?888.?824|IT Head/.test(html),`${page}: private resume details or unsupported title`);
