@@ -33,3 +33,25 @@ for(const c of cases){
  for(const step of c.steps){if(!step.preview)continue;const url=new URL(step.preview,'https://local.test');const html=await readFile(resolve(root,'.'+url.pathname),'utf8');if(url.searchParams.has('view'))assert(html.includes(`id="v-${url.searchParams.get('view')}"`));}
 }
 console.log(`PASS: ${pages.length} pages, ${links} local links/anchors/assets, ${scripts} scripts, all guided HR view targets.`);
+
+// Discoverability regression: the home page must expose every public work
+// without requiring JavaScript or a detour through a case study.
+const home=await readFile(resolve(root,'index.html'),'utf8');
+for(const href of ['hr-service-desk.html','platform.html','org-chart.html','talent-radar.html','genbi.html','hr-case.html','talent-case.html','voxlog.html','https://genbi-mini.streamlit.app/','https://github.com/Kamiyu94/VoxLog#readme']){
+ assert(home.includes(`href="${href}"`),`Homepage missing direct work entry: ${href}`);
+}
+assert(home.indexOf('id="work"')<home.indexOf('id="experience"'),'Work must precede resume content');
+for(const page of ['index.html','voxlog.html']){
+ const html=await readFile(resolve(root,page),'utf8');
+ for(const tag of html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g))assert(tag[0].includes('rel="noopener noreferrer"'),`${page}: unsafe new tab`);
+ assert(!/爭鮮|STARCO|kamiyux@gmail|937.?888.?824|IT Head/.test(html),`${page}: private resume details or unsupported title`);
+}
+assert(home.includes('仍在測試')&&home.includes('最終判定由人員負責'),'Preserve AI Intake status and human decision boundary');
+console.log('PASS: all works directly discoverable, portfolio before experience, public profile boundaries.');
+
+for(const page of ['index.html','genbi.html']){
+ const html=await readFile(resolve(root,page),'utf8');
+ assert(!html.includes('github.com/Kamiyu94/genbi-mini'),'Do not link visitors to private GenBI source');
+ assert(html.includes('demo-preview'),'GenBI must have a sleep-independent visual walkthrough');
+}
+console.log('PASS: GenBI screenshot fallback and public link boundaries.');
