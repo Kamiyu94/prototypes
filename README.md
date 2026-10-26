@@ -59,3 +59,22 @@
 首頁快速入口直接列出五項作品。五張作品卡使用實際畫面，圖片可直接開啟展示或桌面工具介紹；PMO、儀表板與 HR 截圖取自公開虛構資料版本（2026-10-26），GenBI 保留 2026-07-22 歷史操作標示，VoxLog 保留既有範例逐字稿畫面。新圖片位於 `assets/images/*-preview.jpg`。
 
 建置時以 `portfolio.css` 的內容雜湊更新頁面的樣式網址，避免新圖片與瀏覽器快取的舊排版混用。
+
+### Executive visual refinement (2026-10-26)
+
+`assets/editorial.css` is the shared reading layer for the home page and six
+case studies. Home sections alternate navy, ivory, blue-green, ivory and navy.
+Category accents are limited to project borders/labels; coral is reserved for
+risk semantics. Existing interactive demo styles remain independent.
+
+The public resume is `assets/resume/kris-lu-resume.pdf`. Rebuild with
+`python scripts/build-resume.py` in an environment with ReportLab installed.
+By default it uses macOS Arial fonts; set `RESUME_FONT_DIR` to a directory
+containing `Arial.ttf` and `Arial Bold.ttf` on other systems. This is a curated
+public profile, with anonymous client context and LinkedIn contact only.
+
+`npm run build` renders the case template and content-hashes local CSS URLs
+before creating `dist/`. Both the repository-root GitHub Pages output and the
+local build therefore receive updated styles without relying on a hard refresh.
+Run `npm run check` after building to verify links, role boundaries, the resume
+file and the shared case reading layout.

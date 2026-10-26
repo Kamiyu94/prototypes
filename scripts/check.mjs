@@ -55,3 +55,13 @@ for(const page of ['index.html','genbi.html']){
  assert(html.includes('demo-preview'),'GenBI must have a sleep-independent visual walkthrough');
 }
 console.log('PASS: GenBI screenshot fallback and public link boundaries.');
+
+// Keep the public resume reachable and both case templates on the reading system.
+const resume=await readFile(resolve(root,'assets/resume/kris-lu-resume.pdf'));
+assert(resume.subarray(0,5).toString()==='%PDF-','Resume download must be a PDF');
+assert(home.includes('href="assets/resume/kris-lu-resume.pdf" download'),'Resume CTA must download the public PDF');
+for(const page of ['pmo-intake.html','project-dashboard.html','voxlog.html','hr-case.html','genbi.html','talent-case.html']){
+ const html=await readFile(resolve(root,page),'utf8');
+ assert(html.includes('class="case-hero-band"')&&html.includes('assets/editorial.css?v='),`${page}: missing shared reading canvas`);
+}
+console.log('PASS: public resume download and all six case reading layouts.');
