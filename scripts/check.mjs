@@ -56,12 +56,13 @@ for(const page of ['index.html','genbi.html']){
 }
 console.log('PASS: GenBI screenshot fallback and public link boundaries.');
 
-// Keep the public resume reachable and both case templates on the reading system.
-const resume=await readFile(resolve(root,'assets/resume/kris-lu-resume.pdf'));
-assert(resume.subarray(0,5).toString()==='%PDF-','Resume download must be a PDF');
-assert(home.includes('href="assets/resume/kris-lu-resume.pdf" download'),'Resume CTA must download the public PDF');
+// GitHub Pages serves the repository root; also verify the staged build.
+for (const path of ['assets/resume/kris-lu-resume.pdf', 'scripts/build-resume.py']) {
+ for (const base of [process.cwd(), root]) await assert.rejects(stat(resolve(base, path)), {code: 'ENOENT'});
+}
+assert(!home.includes('assets/resume/'), 'Homepage must not offer the withdrawn resume');
 for(const page of ['pmo-intake.html','project-dashboard.html','voxlog.html','hr-case.html','genbi.html','talent-case.html']){
  const html=await readFile(resolve(root,page),'utf8');
  assert(html.includes('class="case-hero-band"')&&html.includes('assets/editorial.css?v='),`${page}: missing shared reading canvas`);
 }
-console.log('PASS: public resume download and all six case reading layouts.');
+console.log('PASS: withdrawn resume absent and all six case reading layouts.');

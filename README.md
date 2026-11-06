@@ -67,14 +67,7 @@ case studies. Home sections alternate navy, ivory, blue-green, ivory and navy.
 Category accents are limited to project borders/labels; coral is reserved for
 risk semantics. Existing interactive demo styles remain independent.
 
-The public resume is `assets/resume/kris-lu-resume.pdf`. Rebuild with
-`python scripts/build-resume.py` in an environment with ReportLab installed.
-By default it uses macOS Arial fonts; set `RESUME_FONT_DIR` to a directory
-containing `Arial.ttf` and `Arial Bold.ttf` on other systems. This is a curated
-public profile, with anonymous client context and LinkedIn contact only.
-
 `npm run build` renders the case template and content-hashes local CSS URLs
 before creating `dist/`. Both the repository-root GitHub Pages output and the
 local build therefore receive updated styles without relying on a hard refresh.
-Run `npm run check` after building to verify links, role boundaries, the resume
-file and the shared case reading layout.
+Run `npm run check` after building to verify links, role boundaries, withdrawn resume assets and the shared case reading layout.
