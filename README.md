@@ -1,10 +1,10 @@
 # Kris Lu — 企業 AI 導入作品集
 
-以簡短個人定位與作品直接入口開場，再用精選駐點經歷說明企業 AI 導入、PMO 治理與跨部門交付能力。
+以企業 AI 導入、PMO 治理與跨部門交付定位開場，先呈現駐點經驗與治理方法，再以可操作作品提供具體實作。
 
 ## 閱讀流程
 
-個人定位與五項直接入口（PMO Intake、專案管理儀表板、HR、GenBI、VoxLog） → PMO Intake／專案管理儀表板 → HR／GenBI／VoxLog 作品卡 → 其他互動作品 → 三項駐點經歷 → 個人背景 → LinkedIn 聯絡。
+個人定位與工作聚焦 → 精簡五項作品導覽與經驗摘要 → 大型連鎖餐飲集團駐點經驗 → 治理與執行方法 → PMO Intake／專案管理儀表板主案例 → GenBI／HR／VoxLog 作品卡 → 其他互動作品 → 管理背景 → LinkedIn 聯絡。
 
 所有既有作品仍有首頁入口：HR Service Desk、HR 平台總覽、組織圖、人才畫像，以及 GenBI Demo。VoxLog 新增獨立介紹頁與專案／安裝說明連結。線上 Demo、互動原型與桌面工具分別標示。
 
@@ -71,3 +71,18 @@ risk semantics. Existing interactive demo styles remain independent.
 before creating `dist/`. Both the repository-root GitHub Pages output and the
 local build therefore receive updated styles without relying on a hard refresh.
 Run `npm run check` after building to verify links, role boundaries, withdrawn resume assets and the shared case reading layout.
+
+## 管理敘事與案例更新（2026-11-23）
+
+本次改版基於公開儲存庫 `15a52d8`，於獨立工作副本製作與驗證。
+
+- 首頁先呈現企業參與與管理判斷，保留五項精簡直接入口及全部作品截圖。
+- PMO Intake 與專案管理儀表板依問題、責任、關鍵判斷、推動方式、交付與目前狀態重整。
+- 兩個案例先區分「企業工作中的參與」與「公開作品中的實作」；保留測試狀態、虛構資料及獨立情境界線。
+- 沿用靜態 HTML、現有藍金視覺、16px 主要內文與相對連結；無新增依賴、後端或資料蒐集。
+- `scripts/check.mjs` 更新首頁閱讀順序與案例證據界線的回歸檢查。
+- 共用樣式變動後，build 會同步更新其他案例頁的 CSS 雜湊；不改寫其內容。
+
+本機檢閱可直接開啟 `dist/index.html`；正式驗證請使用 `npm run dev`。公開展示的外部連結仍前往原有服務，未修改外部展示。
+
+本輪驗證：build、check、diff 格式檢查通過；首頁與兩個核心案例在 375、390、768、1440px 的瀏覽器檢查均無橫向溢出、破圖或頁面 JavaScript 錯誤，並確認首頁與案例錨點導覽。這些檢查不代表企業正式系統驗收，也未包含所有外部服務的完整操作驗證。
